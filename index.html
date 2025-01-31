@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/night.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+
+			<section>
+				<h2>Manyfold: Federating 3d models</h2>
+				<p>James Smith // <a href="https://floppy.org.uk">floppy.org.uk</a></p>
+				<p><a href="https://mastodon.me.uk/@Floppy">@Floppy@mastodon.me.uk</a></p>
+			</section>
+
+			<section>
+				<section>
+					<h2>What's Manyfold?</h2>
+					<p><a href="https://manyfold.app">manyfold.app</a></p>
+				</section>
+
+				<section>
+					<h3>Organising 3d print models</h3>
+					<ul>
+						<li>Browse & Preview</li>
+						<li>Organise & Tidy</li>
+						<li>Troubleshoot & Convert</li>
+					</ul>
+					<img src="models.png" style="height: 30vh">
+				</section>
+
+				<section>
+					<p>...a bit like having your own Thingiverse, but without this:</p>
+					<img src="thingiverse.png" style="height: 50vh">
+				</section>
+
+				<section>
+					<h3>Self Hosted Container</h3>
+					<img src="install.png" style="height: 50vh">
+				</section>
+
+				<section>
+					<h3>Operation Modes</h3>
+					<ul>
+						<li>Private single-user</li>
+						<li>Multiuser</li>
+						<li>Federated!</li>
+					</ul>
+				</section>
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Federation</h2>
+					<p><a href="https://manyfold.app/technology/activitypub">manyfold.app/technology/activitypub</a></p>
+					<small>Note: this is <em>about</em> to release, probably next week</small>
+				</section>
+				<section>
+					<h3><code>f3di</code> namespace</h3>
+					<p><a href="https://purl.org/f3di/ns">https://purl.org/f3di/ns</a></p>
+					<p>Extension properties for 3d content.</p>
+					<ul>
+						<li><code>concreteType</code></li>
+						<li><code>compatibilityNote</code></li>
+					</ul>
+					<p>...with many more to come.</p>
+					<p>Name chosen to be platform-independent.</p>
+				</section>
+				<section>
+					<h3>Actors</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>Internal type</th>
+								<th>Actor type</th>
+								<th>concreteType</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Creator</td>
+								<td>"Person"</td>
+								<td>"Creator"</td>
+							</tr>
+							<tr>
+								<td>Model</td>
+								<td>"Service"</td>
+								<td>"Model"</td>
+							</tr>
+							<tr>
+								<td>Collection</td>
+								<td>"Group"</td>
+								<td>"Collection"</td>
+							</tr>
+							<tr>
+								<td>User</td>
+								<td>"Person"</td>
+								<td>"User"</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h3>Activities</h3>
+					<small>
+						<table>
+							<thead>
+								<tr>
+									<th></th>
+									<th>Model/Creator/Collection</th>
+									<th>User</th>
+									<th>Note</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Create</th>
+									<td style="text-align: center">both</td>
+									<td></td>
+									<td>send</td>
+								</tr>
+								<tr>
+									<th>Update</th>
+									<td style="text-align: center">both</td>
+									<td></td>
+									<td>send</td>
+								</tr>
+								<tr>
+									<th>Delete</th>
+									<td style="text-align: center">both</td>
+									<td></td>
+									<td>send</td>
+								</tr>
+								<tr>
+									<th>Flag</th>
+									<td style="text-align: center">recv</td>
+									<td>both</td>
+									<td>recv</td>
+								</tr>
+								<tr>
+									<th>Follow</th>
+									<td style="text-align: center">recv</td>
+									<td>send</td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>Accept</th>
+									<td style="text-align: center">send</td>
+									<td>recv</td>
+									<td></td>
+								</tr>
+								<tr>
+									<th>Undo</th>
+									<td style="text-align: center">recv</td>
+									<td>send</td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</small>
+				</section>
+				<section>
+					<img src="remote_creator.png">
+				</section>
+				<section>
+					<h3>Compatibility Notes</h3>
+					<p>Most activities are changes to Actors; these won't show in microblog feeds.</p>
+					<p>So: post "Compatibility Notes", which describe the other activities.</p>
+					<code class="json" data-trim>"f3di:compatibilityNote": true</code>
+				</section>
+				<section>
+					<img src="hello.png" style="height: 70vh">
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Federails</h2>
+					<small>by <a href="https://mamot.fr/@mtancoigne">@mtancoigne@mamot.fr</a></small>
+					<p><a href="https://gitlab.com/experimentslabs/federails">gitlab.com/experimentslabs/federails</a></p>
+					<p>#federails:matrix.org</p>
+				</section>
+
+				<section>
+					<h3>Setup</h3>
+					<pre><code class="sh" data-trim>
+						bundle add federails
+					</code></pre>
+					<pre><code class="ruby" data-trim>
+						# config/routes.rb
+						mount Federails::Engine => '/'
+					</code></pre>
+					<pre><code class="sh" data-trim>
+						rails generate federails:install
+						rails generate federails:install:migrations
+					</code></pre>
+
+				</section>
+
+				<section>
+					<h3>Federails::ActorEntity</h3>
+					<pre><code class="ruby" data-trim>
+							# app/models/user.rb
+
+							class User < ApplicationRecord
+								# Include the concern here:
+								include Federails::ActorEntity
+
+								# Configure field names
+								acts_as_federails_actor username_field: :username, name_field: :name,
+									profile_url_method: :user_url
+							end
+            </code></pre>
+				</section>
+
+				<section>
+					<h3>Following</h3>
+					<pre><code class="ruby" data-trim>
+							target = Federails::Actor.find_by_account "@floppy@mastodon.me.uk"
+
+							user.federails_actor.following_follows.create(target_actor: target)
+						</code></pre>
+
+					<p>Incoming requests:</p>
+
+					<pre><code class="ruby" data-trim>
+							class User < ApplicationModel
+								include Federails::ActorEntity
+
+								after_follow :throw_party
+
+							end
+						</code></pre>
+
+				</section>
+
+				<section>
+					<h3>Federails::Activity</h3>
+					<pre><code class="ruby" data-trim>
+							Federails::Activity.create!(
+								actor: user.federails_actor,
+								action: "Create",
+								entity: comment
+							)
+						</code></pre>
+				</section>
+
+				<section>
+					<h3>Object Serialization</h3>
+					<pre><code class="ruby" data-trim>
+							class Comment < ApplicationRecord
+
+								include Federails::DataEntity
+								acts_as_federails_data handles: "Note", actor_entity_method: :commenter
+
+								def to_activitypub_object
+									Federails::DataTransformer::Note.to_federation(
+										self,
+										content: comment.to_html,
+										custom: {
+											"sensitive" => sensitive,
+										}
+									)
+								end
+							end
+						</code></pre>
+				</section>
+				<section>
+					<h3>Trust & Safety</h3>
+					<p><a
+							href="https://github.com/manyfold3d/federails-moderation">https://github.com/manyfold3d/federails-moderation</a>
+					</p>
+					<ul>
+						<li>"Flag" activities</li>
+						<li>Domain blocks</li>
+					</ul>
+				</section>
+			</section>
+
+			<section>
+				<h2>Thanks!</h2>
+				<p>
+					<a href="https://manyfold.app">manyfold.app</a> // <a href="https://3dp.chat/@manyfold">@manyfold@3dp.chat</a>
+				</p>
+				<p>
+					<a href="https://mastodon.me.uk">mastodon.me.uk</a> // <a
+						href="https://mastodon.me.uk/@Floppy">@Floppy@mastodon.me.uk</a>
+				</p>
+				<div style="background: lightgray; display: flex; justify-content: space-evenly; align-items: center">
+					<img src="nlnet.png" style="width: 20vw">
+					<img src="ngi.svg" style="width: 20vw">
+					<img src="opencollective.svg" style="width: 20vw">
+				</div>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
